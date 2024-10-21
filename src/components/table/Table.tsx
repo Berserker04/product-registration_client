@@ -29,7 +29,7 @@ const Table = ({
   };
 
   return (
-    <div className="relative overflow-x-auto w-[800px] mt-8 shadow-md">
+    <div className="relative overflow-x-auto md:w-[800px] mt-8 shadow-md">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
         <thead className="text-xs uppercase dark:text-gray-400 bg-[#273480] text-white">
           <tr>
@@ -58,12 +58,12 @@ const Table = ({
               </th>
               <td className="px-6 py-4">{product.name}</td>
               <td className="px-6 py-4"> {getDatatime(product)}</td>
-              <td className="px-6 py-4">
+              <td className="px-6 py-4 flex gap-1 md:gap-2 flex-col sm:flex-row justify-center items-center">
                 <button
                   onClick={() => editHandler(product)}
                   title="edit"
                   type="button"
-                  className="mr-1 px-3 py-2 text-xs font-medium text-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800"
+                  className="px-3 py-2 text-xs font-medium text-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800"
                 >
                   <FaEdit />
                 </button>
@@ -71,7 +71,7 @@ const Table = ({
                   onClick={() => deleteHandler(product.id)}
                   title="delete"
                   type="button"
-                  className="ml-1 px-3 py-2 text-xs font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                  className="px-3 py-2 text-xs font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                 >
                   <FaTrash />
                 </button>

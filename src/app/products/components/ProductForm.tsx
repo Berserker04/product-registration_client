@@ -43,8 +43,6 @@ const ProductForm = ({ title, product, saveHandler }: props) => {
     setFocus("name");
   }, [setFocus]);
 
-  console.log(saveHandler)
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-6">
