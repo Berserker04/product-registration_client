@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Swal from "sweetalert2";
 interface props {
   fn?: (data?: any) => void;

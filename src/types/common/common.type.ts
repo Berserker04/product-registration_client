@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 interface IPropsFilter {
   page?: number;
   filterText?: string;
@@ -11,6 +12,7 @@ interface IPaginate {
 }
 
 interface IResponse {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any[] | any;
   message: string;
   status: string;

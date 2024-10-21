@@ -45,6 +45,7 @@ export const setUpdateProductService = async (
       body: JSON.stringify({ name: product.name }),
     });
     return getResponseData(res);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return getResponseData(error);
   }
@@ -56,11 +57,13 @@ export const setDeleteProduct = async (
   try {
     const res = await fetchClient(`${URL}/${id}`, { method: "DELETE" });
     return getResponseData(res);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return getResponseData(error);
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getResponseData = (res: any) => {
   if (res?.data) {
     return {

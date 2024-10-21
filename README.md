@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ejecutar en desarrollo
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. Tener pnpm instalado
+```
+npm i -g pnpm
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Versión de NodeJs usada
+```
+v20.12.2
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. Levantar el servidor
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[Documentación de la api](https://github.com/Berserker04/product-registration_api)
 
-## Learn More
+5. Clonar el repositorio
 
-To learn more about Next.js, take a look at the following resources:
+6. Ejecutar
+```
+pnpm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+7. Clonar el archivo ```.env.template``` y renombrar la copia a ```.env```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+8. Ejecutar la aplicación en dev:
+```
+pnpm dev
+```
 
-## Deploy on Vercel
+9. Prueba ingresando al registro de productos
+```
+http://localhost:3000/products
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Inicio rapido con docker
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Tener Docker instalado
+- [Docker install](https://docs.docker.com/desktop/install/windows-install/)
+
+2. Levantar el servidor
+
+[Documentación de la api](https://github.com/Berserker04/product-registration_api)
+
+3. Clonar el repositorio
+
+4. Clonar el archivo ```.env.template``` y renombrar la copia a ```
+.env```
+
+5. Ejecuta el docker-compose
+```
+docker-compose -f docker-compose.prod.yaml up -d --build
+```
+
+6. Prueba ingresando al registro de productos
+```
+http://localhost:3000/products
+```
+
+## Stack usado
+* NextJs
+* Nest
+* Postgres
+
+# Production Build
+1. Crear el archivo ```.env.prod```
+2. Llenar las variables de entorno de prod
+3. Crear la nueva imagen
+```
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up --build
+```
+
+# Despliegue
+Desplegar imagen en plataformas como:
+
+[Render](https://render.com/)
+
+[Digital Ocean](https://www.digitalocean.com/)
+
+# Link del portal en produción
+Puedes probar con la web ya desplegada:
+
+https://optimaltech-web.onrender.com/
+
+# Mockup
+
+![alt text](/src/assets/images/mockup.png)
+
+# Vista en produción
+
+![alt text](/src/assets/images/image.png)
+
+## Si prefieres ejecutar el proyecto completo revisa el orquestador
+
+[Orquestador](https://github.com/Berserker04/product-registration_docker)

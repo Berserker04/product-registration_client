@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  productRegistrationWeb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: optimaltech-web:latest
+    container_name: productRegistrationWeb
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}

@@ -1,5 +1,6 @@
 "use client";
 
+import { paginateInit } from "@/types/common/commonInit";
 import { Pagination } from "flowbite-react";
 
 interface props {
@@ -8,7 +9,11 @@ interface props {
   setCurrentPage: (page: number) => void;
 }
 
-const Paginate = ({ paginate, currentPage, setCurrentPage }: props) => {
+const Paginate = ({
+  paginate = paginateInit,
+  currentPage,
+  setCurrentPage,
+}: props) => {
   const onPageChange = (page: number) => setCurrentPage(page);
 
   return (

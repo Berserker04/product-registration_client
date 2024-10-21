@@ -9,11 +9,6 @@ interface IProductDto extends IProduct {
   updatedAt: Date;
 }
 
-interface IProductList {
-  products: IProductDto[];
-  paginate: IPaginate;
-}
-
 interface IProductResponse {
   products?: IProductDto[];
   paginate: IPaginate;
@@ -22,6 +17,7 @@ interface IProductResponse {
   error?: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface IProductResponseOnly
   extends Omit<IProductResponse, "products" | "paginate"> {
   product?: IProductDto;

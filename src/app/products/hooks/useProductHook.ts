@@ -23,6 +23,7 @@ const useProductHook = () => {
   const [filter, setFilter] = useState<IPropsFilter>(propsFilterInit);
   const [filterText, setFilterText] = useState<string>("");
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { isLoading, data, refetch }: any = useFetchAllProducts(filter);
 
   const saveHandler = async (product: IProduct) => {
@@ -79,7 +80,7 @@ const useProductHook = () => {
     setTimeout(() => {
       refetch();
     }, 100);
-  }, [currentPage, filterText]);
+  }, [currentPage, filterText, refetch]);
 
   return {
     openModal,
