@@ -15,7 +15,6 @@ export function ModalView({ openModal, setOpenModal, children }: props) {
         show={openModal}
         size="md"
         popup
-        positions=""
         onClose={() => setOpenModal(false)}
       >
         <Modal.Header />
