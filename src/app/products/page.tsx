@@ -1,18 +1,93 @@
 "use client";
 
 import Table from "@/components/table/Table";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductForm from "./components/ProductForm";
 import { ModalView } from "@/components/modal/Modal";
 import ProductSearch from "./components/ProductSearch";
-import { setProductService } from "@/services/products.service";
+import {
+  setDeleteProduct,
+  setProductService,
+  setUpdateProductService,
+} from "@/services/products.service";
+import { confirmDeleteAlert } from "@/utils/sendAlerts";
+import toast from "react-hot-toast";
+import {
+  paginateInit,
+  propsFilterInit,
+  STATUS_CODE,
+} from "@/types/common/commonInit";
+
+import { useFetchAllProducts } from "@/services/useFetchProducts";
 
 const ProductPage = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [products, setProducts] = useState<IProductDto[]>([]);
+  const [product, setProduct] = useState<IProductDto>();
+  const [paginate, setPaginate] = useState<IPaginate>(paginateInit);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filter, setFilter] = useState<IPropsFilter>(propsFilterInit);
+  const [filterText, setFilterText] = useState<string>("");
+
+  const { isLoading, data, refetch }: any = useFetchAllProducts(filter);
+
   const saveHandler = async (product: IProduct) => {
-    await setProductService(product.name);
-    setOpenModal(false);
+    const response = await setProductService(product.name);
+
+    if (response.status === STATUS_CODE.SUCCESS) {
+      toast.success("Producto registrado");
+      refetch();
+      setOpenModal(false);
+    }
   };
+
+  const editHandler = async (product: IProductDto) => {
+    setProduct(product);
+    setOpenModalEdit(true);
+  };
+
+  const updateHandler = async (product: IProduct) => {
+    const response = await setUpdateProductService(product);
+    if (response.status === STATUS_CODE.SUCCESS) {
+      toast.success("Producto actualizado");
+      refetch();
+      setOpenModalEdit(false);
+    }
+  };
+
+  const deleteHandler = async (id: string) => {
+    const sendDelete = async (id: string) => {
+      const response = await setDeleteProduct(id);
+      if (response.status === STATUS_CODE.SUCCESS) {
+        toast.success("Producto eliminado");
+        refetch();
+      }
+    };
+
+    confirmDeleteAlert({
+      fn: sendDelete,
+      data: id,
+    });
+  };
+
+  useEffect(() => {
+    if (!isLoading) {
+      setProducts(data?.products);
+      setPaginate(data?.paginate);
+    }
+  }, [isLoading, data]);
+
+  useEffect(() => {
+    setFilter({
+      page: currentPage,
+      filterText: filterText,
+    });
+    setTimeout(() => {
+      refetch();
+    }, 100);
+  }, [currentPage, filterText]);
+
   return (
     <div className="flex flex-col items-center justify-center p-10">
       <button
@@ -23,14 +98,29 @@ const ProductPage = () => {
         Añadir producto
       </button>
 
-      <ProductSearch />
+      <ProductSearch setFilterText={setFilterText} />
 
-      <Table />
+      <Table
+        products={products}
+        isLoading={isLoading}
+        paginate={paginate}
+        editHandler={editHandler}
+        deleteHandler={deleteHandler}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
 
       <ModalView openModal={openModal} setOpenModal={setOpenModal}>
         <ProductForm
           title="Registrar nuevo producto"
           saveHandler={saveHandler}
+        />
+      </ModalView>
+      <ModalView openModal={openModalEdit} setOpenModal={setOpenModalEdit}>
+        <ProductForm
+          product={product}
+          title="Actualizar producto"
+          saveHandler={updateHandler}
         />
       </ModalView>
     </div>

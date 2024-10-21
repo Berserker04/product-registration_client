@@ -1,15 +1,14 @@
 "use client";
 
 import { Pagination } from "flowbite-react";
-import { useState } from "react";
 
 interface props {
   paginate: IPaginate;
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
 }
 
-const Paginate = ({ paginate }: props) => {
-  const [currentPage, setCurrentPage] = useState(1);
-
+const Paginate = ({ paginate, currentPage, setCurrentPage }: props) => {
   const onPageChange = (page: number) => setCurrentPage(page);
 
   return (
@@ -17,7 +16,7 @@ const Paginate = ({ paginate }: props) => {
       <Pagination
         layout="pagination"
         currentPage={currentPage}
-        totalPages={1}
+        totalPages={paginate.totalPages}
         onPageChange={onPageChange}
         previousLabel="Atras"
         nextLabel="Siguiente"

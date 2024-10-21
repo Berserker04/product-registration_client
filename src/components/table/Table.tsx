@@ -1,56 +1,32 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Paginate from "./Paginate";
-import { useFetchAllProducts } from "@/services/useFetchProducts";
-import {
-  setDeleteProduct,
-  setProductService,
-  setUpdateProductService,
-} from "@/services/products.service";
 import moment from "moment";
-import { paginateInit } from "@/types/common/commonInit";
-import { ModalView } from "../modal/Modal";
-import ProductForm from "@/app/products/components/ProductForm";
 
-const Table = () => {
-  const [products, setProducts] = useState<IProductDto[]>([]);
-  const [product, setProduct] = useState<IProductDto>();
-  const [paginate, setPaginate] = useState<IPaginate>(paginateInit);
+interface props {
+  products: IProductDto[];
+  paginate: IPaginate;
+  isLoading: boolean;
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
+  editHandler: (product: IProductDto) => void;
+  deleteHandler: (id: string) => void;
+}
 
-  const [openModal, setOpenModal] = useState(false);
-
+const Table = ({
+  products = [],
+  paginate,
+  isLoading,
+  editHandler,
+  deleteHandler,
+  currentPage,
+  setCurrentPage,
+}: props) => {
   const getDatatime = (product: IProductDto) => {
     return moment(product.createdAt.toString()).format("DD/MM/YYYY hh:mm:ss");
   };
-
-  const editHandler = async (product: IProductDto) => {
-    setProduct(product);
-    setOpenModal(true);
-  };
-
-  const deleteHandler = async (id: string) => {
-    const response = await setDeleteProduct(id);
-
-    if (response.status === 200 || response.status === 201) {
-      // filterSeasons();
-    }
-  };
-
-  const { isLoading, data, refetch }: any = useFetchAllProducts({});
-
-  const saveHandler = async (product: IProduct) => {
-    await setUpdateProductService(product);
-    setOpenModal(false);
-  };
-
-  useEffect(() => {
-    if (!isLoading) {
-      setProducts(data?.products);
-      setPaginate(data?.paginate);
-    }
-  }, [isLoading]);
 
   return (
     <div className="relative overflow-x-auto w-[800px] mt-8 shadow-md">
@@ -120,18 +96,15 @@ const Table = () => {
         <tfoot className="bg-[#273480] text-white">
           <tr>
             <td colSpan={4} className="pt-1 pb-1">
-              <Paginate paginate={paginate} />
+              <Paginate
+                paginate={paginate}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
             </td>
           </tr>
         </tfoot>
       </table>
-      <ModalView openModal={openModal} setOpenModal={setOpenModal}>
-        <ProductForm
-          product={product}
-          title="Actualizar producto"
-          saveHandler={saveHandler}
-        />
-      </ModalView>
     </div>
   );
 };

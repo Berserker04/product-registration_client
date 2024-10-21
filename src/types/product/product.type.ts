@@ -15,13 +15,14 @@ interface IProductList {
 }
 
 interface IProductResponse {
-  products: IProductDto[];
+  products?: IProductDto[];
   paginate: IPaginate;
   message: string;
-  status: number;
+  status: string;
+  error?: string;
 }
 
 interface IProductResponseOnly
   extends Omit<IProductResponse, "products" | "paginate"> {
-  product: IProductDto;
+  product?: IProductDto;
 }

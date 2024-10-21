@@ -1,5 +1,5 @@
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import React, { LegacyRef, useEffect } from "react";
+import { Button, Label, TextInput } from "flowbite-react";
+import React, { useEffect } from "react";
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -42,6 +42,8 @@ const ProductForm = ({ title, product, saveHandler }: props) => {
   useEffect(() => {
     setFocus("name");
   }, [setFocus]);
+
+  console.log(saveHandler)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

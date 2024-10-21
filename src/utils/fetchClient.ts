@@ -24,7 +24,7 @@ export const fetchClient = async (
   return res(data);
 };
 
-const res = ({ data = [], message = "", status = 200 }: IResponse) => ({
+const res = ({ data = [], message = "", status = "success" }: IResponse) => ({
   data,
   message,
   status,

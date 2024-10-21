@@ -5,7 +5,7 @@ export const getFilter = (
 ) => {
   let filter = "";
   if (page || filterText || limit) {
-    filter += "?s";
+    filter += "?";
   }
   filter += page ? `&page=${page}` : "";
   filter += filterText ? `&filter=${filterText}` : "";
